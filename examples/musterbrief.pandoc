@@ -1,0 +1,38 @@
+---
+fromname: Max Mustermann
+fromaddress:
+- Musterstr. 10
+- 99999 Musterstadt
+fromemail: max@muster.de
+fromphone: +49 123 456789-0
+fromfax: +49 123 456789-1
+frommobilephone: +49 175 456789
+fromurl: mustermann.de
+frombank: Musterbank
+toaddress:
+- Musterfirma
+- Frau Erika Mustermann
+- Industriestraße 1
+- Musterstadt
+yourref: xxx-xxx xxx
+yourmail: 29.10.1984
+date: 29.10.1984
+title: Titel
+subject: Betreff
+opening: Sehr geehrte Damen und Herren,
+closing: Mit freundlichen Grüßen
+signature: Max Mustermann
+handsignature: './examplesignature.png'
+encl:
+- Anhang1
+- Anhang2
+cc: 
+- Verteiler1
+- Verteiler2
+ps: 'PS: Dies ist das Postskriptum;\newline
+         Es kann auch über mehrere Zeilen gehen.'
+...
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+vero eos et accusam et justo duo dolores et ea rebum. 

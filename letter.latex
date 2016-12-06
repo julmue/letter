@@ -1,0 +1,339 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Preamble                                                                     %
+%------------------------------------------------------------------------------%
+
+\documentclass[$if(fontsize)$$fontsize$, $endif$% fontsize
+               $if(lang)$$lang$, $endif$% language
+               $if(papersize)$$papersize$,$endif$% papersize 
+               $if(fromemail)$fromemail=on, $endif$% fromemail
+               $if(frommobilephone)$frommobilephone=on, $endif$% frommobilephone
+               $if(fromphone)$fromphone=on, $endif$% fromphone
+               $if(fromfax)$fromfax=on, $endif$% fromfax
+               $if(fromurl)$fromurl=on, $endif$% fromurl
+               $if(frombank)$frombank=on, $endif$% frombank
+               $for(classoption)$$classoption$$sep$,$endfor$% classoptions
+               ]{scrlttr2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pandoc's Defaults                                                            %
+%------------------------------------------------------------------------------%
+
+$if(fontfamily)$
+\usepackage{$fontfamily$}
+$else$
+\usepackage{lmodern}
+$endif$
+
+$if(linestretch)$
+\usepackage{setspace}
+\setstretch{$linestretch$}
+$endif$
+
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+$if(euro)$
+  \usepackage{eurosym}
+$endif$
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+$if(mainfont)$
+    \setmainfont{$mainfont$}
+$endif$
+$if(sansfont)$
+    \setsansfont{$sansfont$}
+$endif$
+$if(monofont)$
+    \setmonofont[Mapping=tex-ansi]{$monofont$}
+$endif$
+$if(mathfont)$
+    \setmathfont(Digits,Latin,Greek){$mathfont$}
+$endif$
+\fi
+
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+
+$if(lang)$
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{$mainlang$}
+\else
+  \usepackage[shorthands=off,$lang$]{babel}
+\fi
+$endif$
+
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+
+$if(biblatex)$
+\usepackage{biblatex}
+$if(biblio-files)$
+\bibliography{$biblio-files$}
+$endif$
+$endif$
+
+$if(listings)$
+\usepackage{listings}
+$endif$
+
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+\VerbatimFootnotes
+$endif$
+
+$if(tables)$
+\usepackage{longtable,booktabs}
+$endif$
+
+$if(graphics)$
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+$endif$
+
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={$author-meta$},
+            pdftitle={$title-meta$},
+            colorlinks=true,
+            citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+% avoid problems with \sout in headers with hyperref:
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+$if(numbersections)$
+\setcounter{secnumdepth}{5}
+$else$
+\setcounter{secnumdepth}{0}
+$endif$
+
+$if(verbatim-in-note)$
+\VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+
+$if(title)$
+\title{$title$$if(subtitle)$\\\vspace{0.5em}{\large $subtitle$}$endif$}
+$endif$
+
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+
+\date{$date$}
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+% -----------------------------------------------------------------------------%
+% Pandoc's Defaults End                                                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom Styling                                                               %
+%------------------------------------------------------------------------------%
+
+\usepackage{textcase}
+\newcommand{\specialformat}[1]{\MakeTextUppercase{#1}}%
+
+\usepackage{xcolor}
+$if(textcolor)$
+\definecolor{textcolor}{HTML}{$textcolor$} %444444
+\color{textcolor}
+$endif$
+
+$if(accentcolor)$
+\definecolor{accentcolor}{HTML}{$accentcolor$} % B93C5A
+\addtokomafont{backaddress}{\normalfont}
+\addtokomafont{fromname}{\color{accentcolor}}
+\addtokomafont{subject}{\color{accentcolor}}
+\addtokomafont{title}{\color{accentcolor}}
+$endif$
+
+\renewcommand*{\raggedsignature}{\raggedright}
+
+% -----------------------------------------------------------------------------%
+% Custom Styling                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Koma Letter Setup                                                            %
+% -----------------------------------------------------------------------------%
+
+$if(letteroption)$
+\LoadLetterOption{$letteroption$}
+$endif$
+
+\setkomavar{backaddressseparator}{\enspace\textperiodcentered\enspace}
+\setkomavar{enclseparator}{: }
+
+$if(title)$
+\setkomavar{title}{\specialformat{$title$}}
+$endif$
+
+$if(subject)$
+\setkomavar{subject}{\specialformat{$subject$}}
+$endif$
+
+$if(fromname)$
+\setkomavar{fromname}{\specialformat{$fromname$}}
+$endif$
+
+$if(fromaddress)$
+\setkomavar{fromaddress}{$for(fromaddress)$$fromaddress$$sep$\\$endfor$}
+$endif$
+
+$if(fromemail)$
+\setkomavar{fromemail}[]{$fromemail$}
+$endif$
+
+$if(fromphone)$
+\setkomavar{fromphone}[]{$fromphone$}
+$endif$
+
+$if(fromfax)$
+\setkomavar{fromfax}[]{$fromfax$}
+$endif$
+
+$if(frommobilephone)$
+\setkomavar{frommobilephone}[]{$frommobilephone$}
+$endif$
+
+$if(fromurl)$
+\setkomavar{fromurl}[]{$fromurl$}
+$endif$
+
+$if(frombank)$
+\setkomavar{frombank}{$frombank$}
+$endif$
+
+\setkomavar{date}{$if(date)$$date$$else$\today$endif$}
+
+$if(yourmail)$
+\setkomavar{yourmail}{$yourmail$}
+$endif$
+
+$if(yourref)$
+\setkomavar{yourref}{$yourref$}
+$endif$
+
+$if(signature)$
+\setkomavar{signature}{$signature$}
+$endif$
+
+$if(signature)$
+$if(handsignature)$
+\usepackage{graphicx,grffile}
+\setkomavar{signature}{\includegraphics{$handsignature$}\\$signature$}
+$else$
+\setkomavar{signature}{$signature$}
+$endif$
+$endif$
+
+
+%------------------------------------------------------------------------------%
+% Koma Letter Setup End                                                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+
+%------------------------------------------------------------------------------%
+% Letter                                                                       %
+%------------------------------------------------------------------------------%
+
+\begin{letter}{$if(toaddress)$$for(toaddress)$$toaddress$$sep$\\$endfor$$else$toaddress$endif$}
+\opening{$opening$}
+
+$body$
+
+\closing{$closing$}
+
+$if(encl)$
+\encl{$for(encl)$$encl$$sep$\\$endfor$}
+$endif$
+
+$if(cc)$
+\cc{$for(cc)$$cc$$sep$\\$endfor$}
+$endif$
+
+$if(ps)$
+\ps $ps$
+$endif$
+
+\end{letter}
+
+%------------------------------------------------------------------------------%
+% Letter End                                                                   %
+%------------------------------------------------------------------------------%
+
+$for(include-after)$
+$include-after$
+
+$endfor$
+\end{document}

@@ -1,0 +1,44 @@
+---
+textcolor: 555555
+accentcolor: 333333
+letteroption: UScommercial9
+classoption:
+- 'fromalign=right'
+fromname: John Doe
+fromaddress:
+- Doe Street N 10
+- ABCDEFG Doe City
+fromemail: john@doe.com
+fromphone: +01 23456789-0
+fromfax: +01 23456789-1
+frommobilephone: +01 175 123456789
+fromurl: johndoe.com
+frombank: doebank
+toaddress:
+- That Company
+- Ms Jane Doe
+- That Street
+- GFEDCBA That City
+yourref: xxx-xxx xxx
+yourmail: 29.10.1984
+date: 29.10.1984
+title: Title
+subject: Subject
+opening: To whom it may concern
+closing: Yours faithfully
+signature: John Doe
+handsignature: './examplesignature.png'
+encl:
+- Enclosure 1
+- Enclosure 2
+cc: 
+- Distributor 1
+- Distributor 2
+ps: ' Postscript \newline \
+         More than one line is possible.'
+...
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 

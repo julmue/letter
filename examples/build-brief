@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Build a german letter (Din 5008, without foldmarks, ...)
+# Ever option specified with V of M could also be specified
+# in the letter metadata.
+
+FILENAME=$(basename --suffix=.pandoc $1)
+
+# Colors have to be specified by their HTML value.
+ACCENTCOLOR=B93C5A
+TEXTCOLOR=444444
+
+# Precondition:
+# Here the environment variale 'PANDOCTEMPLATES' has to be set.
+# Otherwise you could just hardcode the pathname.
+if [ -z ${PANDOCTEMPLATES+x} ]; then 
+	echo "Error: Environment variable PANDOCTEMPLATES is unset!"
+	exit 1
+fi
+
+templatePath=${PANDOCTEMPLATES}/letter.latex
+
+pandoc ${FILENAME}.pandoc \
+       --template=$templatePath \
+       -o ${FILENAME}.pdf \
+       -V lang=german \
+       -V fontfamily=mathpazo \
+       -V textcolor=$TEXTCOLOR \
+       -V accentcolor=$ACCENTCOLOR \
+       -V letteroption=din \
+       -M classoption='fromalign=right' \
+       -M classoption='foldmarks=false' \
+       -M classoption='fromrule=aftername'
