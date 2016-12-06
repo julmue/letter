@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Build a german letter (Din 5008, without foldmarks, ...)
+# Ever option specified with V of M could also be specified
+# in the letter metadata.
+
+FILENAME=$(basename --suffix=.pandoc $1)
+
+# Colors have to be specified by their HTML value.
+ACCENTCOLOR=B93C5A
+TEXTCOLOR=444444
+
+pandoc ${FILENAME}.pandoc \
+       --template=letter.latex \
+       -o ${FILENAME}.pdf \
+       -V lang=german \
+       -V fontfamily=mathpazo \
+       -V textcolor=$TEXTCOLOR \
+       -V accentcolor=$ACCENTCOLOR \
+       -V letteroption=DIN \
+       -M classoption='fromalign=right' \
+       -M classoption='foldmarks=false' \
+       -M classoption='fromrule=aftername'
